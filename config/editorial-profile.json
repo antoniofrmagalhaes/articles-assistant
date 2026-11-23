@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "defaultAuthorId": "nathalia-valadares",
+  "authors": {
+    "nathalia-valadares": {
+      "name": "Nathália de Campos Valadares",
+      "aliases": ["Nathália Valadares", "Nathalia Valadares", "Nathalia de Campos Valadares"],
+      "description": "Mestra cum laude em Direito Privado. Pós-Graduada em Direito Civil. Autora do livro Famílias Coparentais. Professora. Advogada Especialista em Direito de Família, Sucessões e Infância e Juventude.",
+      "source": "Biografia já presente nos dados editoriais locais do acervo de artigos."
+    }
+  },
+  "titleNote": {
+    "whenMissing": "publisher-derives-from-article",
+    "preserveProvidedNote": true,
+    "minimumCharacters": 24,
+    "instructions": "Se o Word ou a cliente fornecer uma nota, preserve-a. Caso contrário, o publicador deve redigir uma frase neutra de contexto a partir do conteúdo do artigo, sem pedir uma nota à cliente apenas por estar ausente.",
+    "doNotInvent": [
+      "publicação anterior",
+      "evento ou palestra",
+      "data ou local de origem",
+      "pesquisa ou vínculo institucional",
+      "fatos ou conclusões que o artigo não apresenta"
+    ]
+  }
+}

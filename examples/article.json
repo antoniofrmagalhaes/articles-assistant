@@ -1,0 +1,230 @@
+{
+  "_type": "article",
+  "title": "Artigo de teste: publicação e recursos editoriais",
+  "slug": {
+    "_type": "slug",
+    "current": "artigo-teste-publicacao-recursos-editoriais"
+  },
+  "cid": "cidv1-0123456789abcdef0123456789abcdef01234567",
+  "frontMatter": {
+    "_type": "articleFrontMatter",
+    "kicker": "Conteúdo de teste",
+    "subtitle": "Um exemplo completo para conferir o preenchimento do artigo.",
+    "abstract": "Este artigo fictício apresenta conteúdo de exemplo para verificar os campos editoriais, as referências e os dados de publicação de um artigo no sistema.",
+    "titleNote": "Artigo fictício elaborado exclusivamente para testes de preenchimento.",
+    "summaryItems": [
+      "Introdução",
+      "Considerações finais"
+    ],
+    "lead": "Este texto fictício reúne exemplos de conteúdo para facilitar a conferência dos campos disponíveis e da apresentação de um artigo no site."
+  },
+  "sections": [
+    {
+      "_type": "articleSection",
+      "_key": "secao-1",
+      "id": "introducao",
+      "number": "1",
+      "title": "Introdução",
+      "content": [
+        {
+          "_type": "articleRichTextBlock",
+          "_key": "texto-1",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "paragrafo-1",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "link-google",
+                  "href": "https://www.google.com"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "paragrafo-1-span",
+                  "text": "Este é um parágrafo de teste com um link para o Google.",
+                  "marks": [
+                    "link-google"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_type": "articlePullQuoteBlock",
+          "_key": "citacao-1",
+          "quote": "Esta citação fictícia demonstra como um destaque editorial pode aparecer no artigo.",
+          "attribution": "Autoria de teste"
+        },
+        {
+          "_type": "articleLegalExcerptBlock",
+          "_key": "legal-1",
+          "source": "Fonte legal fictícia",
+          "citation": "Artigo 1º, exemplo de teste",
+          "excerpt": "Este trecho é fictício e serve apenas para testar a apresentação de uma transcrição."
+        },
+        {
+          "_type": "articleCalloutBlock",
+          "_key": "aviso-1",
+          "tone": "note",
+          "title": "Nota de teste",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "aviso-texto",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "link-google",
+                  "href": "https://www.google.com"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "aviso-texto-span",
+                  "text": "Este quadro contém informações fictícias e um link para o Google.",
+                  "marks": [
+                    "link-google"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "articleSection",
+      "_key": "secao-2",
+      "id": "consideracoes-finais",
+      "number": "2",
+      "title": "Considerações finais",
+      "content": [
+        {
+          "_type": "articleRichTextBlock",
+          "_key": "texto-2",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "paragrafo-2",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "link-google",
+                  "href": "https://www.google.com"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "paragrafo-2-span",
+                  "text": "A conclusão de teste encerra este exemplo de artigo.",
+                  "marks": [
+                    "link-google"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footnotes": [
+    {
+      "_type": "articleFootnote",
+      "_key": "nota-1",
+      "label": "1",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "nota-texto",
+          "style": "normal",
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "link-google",
+              "href": "https://www.google.com"
+            }
+          ],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "nota-texto-span",
+              "text": "Nota de rodapé fictícia para conferir o recurso de notas.",
+              "marks": [
+                "link-google"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "references": [
+    {
+      "_type": "articleReference",
+      "_key": "ref-1",
+      "label": "Referência de teste",
+      "text": "AUTOR DE TESTE. Título fictício da referência. Revista de Teste, 2026.",
+      "matches": [
+        {
+          "_type": "articleReferenceMatch",
+          "_key": "match-1",
+          "pattern": "Revista de Teste",
+          "url": "https://www.google.com",
+          "isRegex": false
+        }
+      ]
+    }
+  ],
+  "author": {
+    "_type": "articleAuthor",
+    "name": "Autora de Teste",
+    "description": "Autora fictícia com experiência editorial, criada exclusivamente para verificar o preenchimento do cadastro."
+  },
+  "coAuthors": [
+    {
+      "_type": "articleAuthor",
+      "_key": "coautor-1",
+      "name": "Coautor de Teste",
+      "description": "Coautor fictício com experiência em pesquisa, criado exclusivamente para verificar o cadastro."
+    }
+  ],
+  "hero": {
+    "_type": "articleHero",
+    "coverImageAlt": "Imagem ilustrativa de teste para a capa do artigo.",
+    "displayMode": "editorial-header"
+  },
+  "seo": {
+    "_type": "articleSeo",
+    "excerpt": "Artigo fictício para testar o preenchimento de campos editoriais, autoria, referências e dados de publicação.",
+    "featured": true
+  },
+  "taxonomy": {
+    "_type": "articleTaxonomy",
+    "topics": [
+      "Teste editorial",
+      "Publicação"
+    ]
+  },
+  "publication": {
+    "_type": "articlePublication",
+    "publishedAt": "2026-11-23T12:00:00Z",
+    "originalPublication": "Revista de Teste Editorial",
+    "publicationLink": {
+      "title": "Leia a publicação original",
+      "href": "https://www.google.com"
+    },
+    "edition": "n. 42",
+    "volume": "v. 12",
+    "pages": "25–38"
+  }
+}

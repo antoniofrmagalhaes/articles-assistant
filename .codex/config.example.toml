@@ -1,0 +1,14 @@
+# Execute npm run setup nesta cópia para gerar config.toml com caminhos absolutos.
+[mcp_servers.articles_sanity]
+command = "node"
+args = ["mcp/sanity/server.mjs"]
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+
+[mcp_servers.articles_devtools]
+command = "node"
+args = ["mcp/devtools/server.mjs"]
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 180

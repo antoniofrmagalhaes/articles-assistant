@@ -1,0 +1,8 @@
+Docs/
+node_modules/
+.env
+.codex/config.toml
+artifacts/
+*.log
+Docs/*/.operation.lock
+operations/

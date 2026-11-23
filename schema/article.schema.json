@@ -1,0 +1,952 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Artigo Sanity",
+  "$comment": "Gerado do schema/source. O validador executa também regras customizadas do Sanity, Portable Text e requisitos da página; este JSON Schema sozinho não substitui validate:article.",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 140
+    },
+    "frontMatter": {
+      "type": "object",
+      "properties": {
+        "kicker": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "abstract": {
+          "type": "string",
+          "minLength": 80
+        },
+        "titleNote": {
+          "type": "string",
+          "minLength": 24
+        },
+        "summaryItems": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 6
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 80
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "abstract",
+        "titleNote",
+        "summaryItems",
+        "lead"
+      ]
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "children": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "marks": {
+                                              "type": "array",
+                                              "items": {
+                                                "anyOf": [
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "text": {
+                                              "type": "string"
+                                            },
+                                            "_type": {
+                                              "const": "span"
+                                            },
+                                            "_key": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          },
+                                          "required": [
+                                            "_type",
+                                            "_key"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "style": {
+                                    "type": "string",
+                                    "enum": [
+                                      "normal",
+                                      "h2",
+                                      "h3",
+                                      "blockquote"
+                                    ]
+                                  },
+                                  "listItem": {
+                                    "type": "string",
+                                    "enum": [
+                                      "bullet",
+                                      "number"
+                                    ]
+                                  },
+                                  "markDefs": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "href": {
+                                              "type": "string"
+                                            },
+                                            "_type": {
+                                              "const": "link"
+                                            },
+                                            "_key": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          },
+                                          "required": [
+                                            "href",
+                                            "_type",
+                                            "_key"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "level": {
+                                    "type": "number"
+                                  },
+                                  "_type": {
+                                    "const": "block"
+                                  },
+                                  "_key": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "_type",
+                                  "_key"
+                                ]
+                              }
+                            ]
+                          },
+                          "minItems": 1
+                        },
+                        "_type": {
+                          "const": "articleRichTextBlock"
+                        },
+                        "_key": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "content",
+                        "_type",
+                        "_key"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "quote": {
+                          "type": "string",
+                          "minLength": 20
+                        },
+                        "attribution": {
+                          "type": "string"
+                        },
+                        "_type": {
+                          "const": "articlePullQuoteBlock"
+                        },
+                        "_key": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "quote",
+                        "_type",
+                        "_key"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "source": {
+                          "type": "string"
+                        },
+                        "citation": {
+                          "type": "string"
+                        },
+                        "excerpt": {
+                          "type": "string",
+                          "minLength": 20
+                        },
+                        "_type": {
+                          "const": "articleLegalExcerptBlock"
+                        },
+                        "_key": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "source",
+                        "excerpt",
+                        "_type",
+                        "_key"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "tone": {
+                          "type": "string",
+                          "enum": [
+                            "note",
+                            "warning"
+                          ]
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "children": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "marks": {
+                                              "type": "array",
+                                              "items": {
+                                                "anyOf": [
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "text": {
+                                              "type": "string"
+                                            },
+                                            "_type": {
+                                              "const": "span"
+                                            },
+                                            "_key": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          },
+                                          "required": [
+                                            "_type",
+                                            "_key"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "style": {
+                                    "type": "string",
+                                    "enum": [
+                                      "normal",
+                                      "h2",
+                                      "h3",
+                                      "blockquote"
+                                    ]
+                                  },
+                                  "listItem": {
+                                    "type": "string",
+                                    "enum": [
+                                      "bullet",
+                                      "number"
+                                    ]
+                                  },
+                                  "markDefs": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "href": {
+                                              "type": "string"
+                                            },
+                                            "_type": {
+                                              "const": "link"
+                                            },
+                                            "_key": {
+                                              "type": "string",
+                                              "minLength": 1
+                                            }
+                                          },
+                                          "required": [
+                                            "href",
+                                            "_type",
+                                            "_key"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "level": {
+                                    "type": "number"
+                                  },
+                                  "_type": {
+                                    "const": "block"
+                                  },
+                                  "_key": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "_type",
+                                  "_key"
+                                ]
+                              }
+                            ]
+                          },
+                          "minItems": 1
+                        },
+                        "_type": {
+                          "const": "articleCalloutBlock"
+                        },
+                        "_key": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "tone",
+                        "body",
+                        "_type",
+                        "_key"
+                      ]
+                    }
+                  ]
+                },
+                "minItems": 1
+              },
+              "_type": {
+                "const": "articleSection"
+              },
+              "_key": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "number",
+              "title",
+              "content",
+              "_type",
+              "_key"
+            ]
+          }
+        ]
+      },
+      "minItems": 1
+    },
+    "footnotes": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "children": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "marks": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "text": {
+                                    "type": "string"
+                                  },
+                                  "_type": {
+                                    "const": "span"
+                                  },
+                                  "_key": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "_type",
+                                  "_key"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "style": {
+                          "type": "string",
+                          "enum": [
+                            "normal",
+                            "h2",
+                            "h3",
+                            "blockquote"
+                          ]
+                        },
+                        "listItem": {
+                          "type": "string",
+                          "enum": [
+                            "bullet",
+                            "number"
+                          ]
+                        },
+                        "markDefs": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "href": {
+                                    "type": "string"
+                                  },
+                                  "_type": {
+                                    "const": "link"
+                                  },
+                                  "_key": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "href",
+                                  "_type",
+                                  "_key"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "level": {
+                          "type": "number"
+                        },
+                        "_type": {
+                          "const": "block"
+                        },
+                        "_key": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "_type",
+                        "_key"
+                      ]
+                    }
+                  ]
+                },
+                "minItems": 1
+              },
+              "_type": {
+                "const": "articleFootnote"
+              },
+              "_key": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "label",
+              "content",
+              "_type",
+              "_key"
+            ]
+          }
+        ]
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 20
+              },
+              "matches": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "pattern": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "isRegex": {
+                          "type": "boolean"
+                        },
+                        "_type": {
+                          "const": "articleReferenceMatch"
+                        },
+                        "_key": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "pattern",
+                        "url",
+                        "_type",
+                        "_key"
+                      ]
+                    }
+                  ]
+                },
+                "maxItems": 8
+              },
+              "_type": {
+                "const": "articleReference"
+              },
+              "_key": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "_type",
+              "_key"
+            ]
+          }
+        ]
+      }
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 1200
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "name",
+        "description"
+      ]
+    },
+    "coAuthors": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 40,
+                "maxLength": 1200
+              },
+              "_type": {
+                "const": "articleAuthor"
+              },
+              "_key": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "_type",
+              "_key"
+            ]
+          }
+        ]
+      },
+      "maxItems": 4
+    },
+    "hero": {
+      "type": "object",
+      "properties": {
+        "coverImage": {
+          "type": "object",
+          "properties": {
+            "asset": {
+              "type": "object",
+              "properties": {
+                "_ref": {
+                  "type": "string"
+                },
+                "_weak": {
+                  "type": "boolean"
+                },
+                "_type": {
+                  "type": "string"
+                },
+                "_key": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "media": {
+              "type": "object",
+              "properties": {
+                "_ref": {
+                  "type": "string"
+                },
+                "_weak": {
+                  "type": "boolean"
+                },
+                "_type": {
+                  "type": "string"
+                },
+                "_key": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "hotspot": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "_type": {
+                  "type": "string"
+                },
+                "_key": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "height",
+                "width"
+              ]
+            },
+            "crop": {
+              "type": "object",
+              "properties": {
+                "top": {
+                  "type": "number"
+                },
+                "bottom": {
+                  "type": "number"
+                },
+                "left": {
+                  "type": "number"
+                },
+                "right": {
+                  "type": "number"
+                },
+                "_type": {
+                  "type": "string"
+                },
+                "_key": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "top",
+                "bottom",
+                "left",
+                "right"
+              ]
+            },
+            "_type": {
+              "type": "string"
+            },
+            "_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "coverImageAlt": {
+          "type": "string"
+        },
+        "displayMode": {
+          "type": "string",
+          "enum": [
+            "cover",
+            "editorial-header",
+            "minimal"
+          ]
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "displayMode"
+      ]
+    },
+    "seo": {
+      "type": "object",
+      "properties": {
+        "excerpt": {
+          "type": "string",
+          "minLength": 60,
+          "maxLength": 260
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "excerpt"
+      ]
+    },
+    "taxonomy": {
+      "type": "object",
+      "properties": {
+        "topics": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 6
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "topics"
+      ]
+    },
+    "publication": {
+      "type": "object",
+      "properties": {
+        "publishedAt": {
+          "type": "string"
+        },
+        "originalPublication": {
+          "type": "string"
+        },
+        "publicationLink": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "href": {
+              "type": "string"
+            },
+            "_type": {
+              "type": "string"
+            },
+            "_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "title",
+            "href"
+          ]
+        },
+        "edition": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "string"
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "publishedAt"
+      ]
+    },
+    "slug": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "current"
+      ]
+    },
+    "cid": {
+      "type": "string"
+    },
+    "_type": {
+      "const": "article"
+    },
+    "_key": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "title",
+    "frontMatter",
+    "sections",
+    "footnotes",
+    "author",
+    "hero",
+    "seo",
+    "taxonomy",
+    "publication",
+    "slug",
+    "_type"
+  ]
+}

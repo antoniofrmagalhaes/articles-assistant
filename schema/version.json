@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "da351d8",
+  "fingerprints": {
+    "articleType.ts": "7257a55839d0b0f1abe2eb5f75f9b88fc26d4cdf324c4ee05eae4a8ae16dd415",
+    "articleSupportingTypes.ts": "8a0f5be8d3937da968c580642ce0edd28f7841342b3d00f71db1b7cbe0a8eca5",
+    "index.ts": "e62b64e91bc9cca94f42474d3432622415a654206c455fe261091ef5cf21ebfd"
+  },
+  "generatedAt": "2026-11-23T18:14:57.871Z",
+  "runtimeSource": "schema/source",
+  "note": "Snapshot portátil sem componentes visuais do Studio. Nomes, tipos, caminhos e regras de dados preservados. Atualize o pacote deliberadamente quando o schema do Studio mudar."
+}

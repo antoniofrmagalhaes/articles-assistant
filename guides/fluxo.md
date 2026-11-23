@@ -1,5 +1,7 @@
 # Fluxo e recuperação
 
+Um novo pedido explícito para publicar/publicar novamente autoriza recriar o mesmo ID se o documento estiver ausente, mesmo com revisão anterior ou marca de exclusão no estado local. Use `newPublicationRequest: true` em `publish_article` ou `check_panel_ready`; não peça outra confirmação de republicação. Esse parâmetro não se aplica a uma repetição/retomada automática sem novo pedido e não remove validações ou proteções contra revisão remota e slug duplicado. Preserve `publication-state.json`; ausência remota, por si só, não comprova exclusão nem sua causa.
+
 Pesquisa/exclusão não percorrem o fluxo de conversão/publicação abaixo. Use `search_articles` primeiro, sem dependência de `Docs` ou Chrome. Um par publicado/draft do mesmo ID é um artigo; só pergunte qual artigo se houver mais de um candidato. Antes de excluir, use `prepare_article_deletion`: se houver arquivos correspondentes em `Docs/`, pergunte se devem ser removidos também e aguarde sim/não antes de qualquer exclusão. Depois use `delete_remote_article`: Sanity primeiro; arquivos físicos depois, somente se sim e com o token do escopo aprovado. Sem arquivos locais não há essa pergunta. Não execute setup nem tente navegador para resolver uma consulta sem slug.
 
 1. `workspace_status`: leia os valores atuais do `.env` e use-os. `SITE_URL` define a conferência e independe do projeto/dataset do Sanity. Não proponha trocar localhost por domínio público nem peça confirmação para usar o endereço configurado.

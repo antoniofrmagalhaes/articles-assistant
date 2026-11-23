@@ -186,8 +186,16 @@ const tools = [
   ),
   spec(
     "publish_article",
-    "Cria ou corrige o MESMO documento diretamente. Descarta automaticamente drafts anteriores deste artigo sem confirmação e reinicia a preparação. Exige JSON/hash válidos, checa slug/revisão, valida novamente e preserva o documento publicado.",
-    { articlePath, expectedContentHash: string },
+    "Cria ou corrige o MESMO documento diretamente. Para um NOVO pedido explícito da pessoa para publicar/publicar novamente, use newPublicationRequest=true: permite recriar documento ausente mantendo ID, mesmo após exclusão, sem perguntar outra vez. Omita ou use false em retomadas automáticas; não reutilize autorização antiga. Preserva validações, destino, slug e conflito de revisão. Descarta drafts anteriores automaticamente.",
+    {
+      articlePath,
+      expectedContentHash: string,
+      newPublicationRequest: {
+        type: "boolean",
+        description:
+          "Indica um novo pedido explícito de publicação da pessoa. Não exige outra confirmação; não usar por mera repetição/retomada de uma tentativa antiga.",
+      },
+    },
     ["articlePath", "expectedContentHash"],
     publishArticle,
   ),
@@ -200,8 +208,8 @@ const tools = [
   ),
   spec(
     "check_panel_ready",
-    "Imediatamente antes de clicar Publish: valida JSON/hash, revisão publicada, rascunho idêntico e colisões de slug. Somente leitura.",
-    { articlePath, expectedContentHash: string },
+    "Imediatamente antes de clicar Publish: valida JSON/hash, revisão publicada, rascunho idêntico e colisões de slug. Novo pedido explícito de publicação usa newPublicationRequest=true e permite recriar o mesmo ID ausente, sem nova pergunta. Retomada automática não autoriza isso. Somente leitura.",
+    { articlePath, expectedContentHash: string, newPublicationRequest: { type: "boolean" } },
     ["articlePath", "expectedContentHash"],
     checkPanelReady,
   ),

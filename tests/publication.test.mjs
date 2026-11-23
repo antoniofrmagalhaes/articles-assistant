@@ -156,6 +156,119 @@ async function fixture(run) {
   }
 }
 
+test("new publication request recreates a missing document with the same identity, without reusing the authorization later", async () =>
+  fixture(async ({ document, articlePath, folder, api }) => {
+    const args = { articlePath, expectedContentHash: hash(document) };
+    await publishArticle(args, { config, api });
+    const statePath = path.join(folder, "publication-state.json");
+    const oldState = await json(statePath);
+    await api.transaction().delete(document._id).commit();
+    const writes = api.writes;
+    await assert.rejects(
+      () => publishArticle(args, { config, api }),
+      /Documento não encontrado no Sanity configurado/,
+    );
+    assert.equal(api.writes, writes);
+    const result = await publishArticle({ ...args, newPublicationRequest: true }, { config, api });
+    assert.equal(result.sanityPublished, true);
+    assert.equal(result.id, document._id);
+    assert.equal(api.size(), 1);
+    assert.equal((await api.getDocument(document._id)).cid, document.cid);
+    assert.deepEqual(await json(path.join(folder, "article.json")), document);
+    const state = await json(statePath);
+    assert.equal(state.publicationRequest.previousRevision, oldState.revision);
+    assert.equal(state.confirmedHash, hash(document));
+    assert.notEqual(state.revision, oldState.revision);
+    await api.transaction().delete(document._id).commit();
+    await assert.rejects(
+      () => publishArticle(args, { config, api }),
+      /retomada automática não autoriza recriação/,
+    );
+    assert.equal(api.size(), 0);
+  }));
+
+test("locally deleted article can be republished on a new request; old automatic attempts stay blocked", async () =>
+  fixture(async ({ document, articlePath, folder, api }) => {
+    const args = { articlePath, expectedContentHash: hash(document) };
+    await publishArticle(args, { config, api });
+    await api.transaction().delete(document._id).commit();
+    const statePath = path.join(folder, "publication-state.json");
+    await saveJson(statePath, {
+      ...(await json(statePath)),
+      status: "deleted",
+      sanityPublished: false,
+      pageChecked: false,
+    });
+    await assert.rejects(() => publishArticle(args, { config, api }), /marcado como excluído/);
+    assert.equal(api.size(), 0);
+    api.failAfterCommit = true;
+    await assert.rejects(
+      () => publishArticle({ ...args, newPublicationRequest: true }, { config, api }),
+      /não confirmada/,
+    );
+    const writes = api.writes;
+    assert.equal((await publishArticle(args, { config, api })).sanityPublished, true);
+    assert.equal(api.writes, writes);
+    assert.equal(api.size(), 1);
+    assert.equal((await json(statePath)).status, "published");
+  }));
+
+test("new publication request preserves remote revision, slug, destination and content validation guards", async () =>
+  fixture(async ({ document, articlePath, folder, api }) => {
+    const args = { articlePath, expectedContentHash: hash(document), newPublicationRequest: true };
+    await publishArticle(args, { config, api });
+    api.externalEdit(document._id);
+    await assert.rejects(() => publishArticle(args, { config, api }), /Conflito de revisão/);
+    assert.equal((await api.getDocument(document._id)).title, "Título editado externamente");
+    await assert.rejects(
+      () => publishArticle(args, { config: { ...config, dataset: "other" }, api }),
+      /destino|dataset|projeto/,
+    );
+    await assert.rejects(
+      () => publishArticle({ ...args, expectedContentHash: "old-hash" }, { config, api }),
+      /JSON mudou/,
+    );
+    await api.transaction().delete(document._id).commit();
+    api.seed({ ...structuredClone(document), _id: "other-article", _rev: "other-r1" });
+    const writes = api.writes;
+    await assert.rejects(() => publishArticle(args, { config, api }), /Validação remota|Slug/);
+    assert.equal(api.writes, writes);
+    document.sections[0].content = null;
+    await saveJson(path.join(folder, "article.json"), document);
+    await assert.rejects(
+      () => publishArticle({ ...args, expectedContentHash: hash(document) }, { config, api }),
+      /Publicação bloqueada/,
+    );
+    assert.equal(api.writes, writes);
+  }));
+
+test("panel recreation requires a new request and keeps the same ID, draft and external revision guards", async () =>
+  fixture(async ({ document, articlePath, folder, api }) => {
+    const args = { articlePath, expectedContentHash: hash(document) };
+    await publishArticle(args, { config, api });
+    await api.transaction().delete(document._id).commit();
+    const statePath = path.join(folder, "publication-state.json");
+    await saveJson(statePath, { ...(await json(statePath)), status: "deleted", mode: "panel" });
+    api.seed({ ...structuredClone(document), _id: `drafts.${document._id}`, _rev: "new-draft" });
+    const writes = api.writes;
+    await assert.rejects(
+      () => checkPanelReady(args, { config, api }),
+      /Documento não encontrado no Sanity configurado/,
+    );
+    assert.equal(
+      (await checkPanelReady({ ...args, newPublicationRequest: true }, { config, api })).panelReady,
+      true,
+    );
+    assert.equal(api.writes, writes);
+    assert.equal(api.size(), 1);
+    api.seed({ ...structuredClone(document), _rev: "external-revision", title: "Edição externa" });
+    await assert.rejects(
+      () => checkPanelReady({ ...args, newPublicationRequest: true }, { config, api }),
+      /alterada externamente/,
+    );
+    assert.equal(api.writes, writes);
+  }));
+
 test("create, retry and correction retain one published document", async () =>
   fixture(async ({ document, articlePath, folder, api }) => {
     const result = await publishArticle(

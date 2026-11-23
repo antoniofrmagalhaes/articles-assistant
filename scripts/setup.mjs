@@ -11,7 +11,7 @@ if (!existsSync(path.join(root, ".env")))
   await fs.copyFile(path.join(root, ".env.example"), path.join(root, ".env"));
 const quote = (value) => JSON.stringify(value);
 const block = (name, entry) =>
-  `[mcp_servers.${name}]\ncommand = ${quote(process.execPath)}\nargs = [${quote(path.join(root, entry))}]\ncwd = ${quote(root)}\nenabled = true\nstartup_timeout_sec = 60\ntool_timeout_sec = 180\n`;
+  `[mcp_servers.${name}]\ncommand = ${quote(process.execPath)}\nargs = [${quote(path.join(root, entry))}]\ncwd = ${quote(root)}\nenabled = true\nstartup_timeout_sec = 180\ntool_timeout_sec = 180\n`;
 await fs.writeFile(
   path.join(root, ".codex/config.toml"),
   `# Gerado para esta cópia. Execute npm run setup novamente após mover a pasta.\n\n${block("articles_sanity", "mcp/sanity/server.mjs")}\n${block("articles_devtools", "mcp/devtools/server.mjs")}`,

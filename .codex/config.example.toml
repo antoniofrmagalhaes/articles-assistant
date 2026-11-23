@@ -3,12 +3,12 @@
 command = "node"
 args = ["mcp/sanity/server.mjs"]
 enabled = true
-startup_timeout_sec = 60
+startup_timeout_sec = 180
 tool_timeout_sec = 180
 
 [mcp_servers.articles_devtools]
 command = "node"
 args = ["mcp/devtools/server.mjs"]
 enabled = true
-startup_timeout_sec = 60
+startup_timeout_sec = 180
 tool_timeout_sec = 180

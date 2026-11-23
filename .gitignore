@@ -1,5 +1,6 @@
 Docs/
 node_modules/
+.npm-cache/
 .env
 .codex/config.toml
 artifacts/
